@@ -1,0 +1,44 @@
+GET http://localhost:4000/api/portfolio/find-one/2
+
+
+###
+
+POST http://localhost:4000/addUser
+Content-Type: application/json
+
+{
+    "email": "ayamsemestai@gmail.com",
+    "password": "ayamsemesta"
+}
+
+
+
+###
+POST http://localhost:4000/api/portfolio/create-many
+Content-Type: application/json
+
+[
+    {
+        "nama" : "Ayam s",
+        "foto" : "foto.jpg",
+        "linkedin" : "https://linkedin.com/in/ayamsemesta",
+        "github" : "https://github.com/ayamsemesta",
+        "nomor_telepon" : "08123456789",
+        "bio" : "Saya seorang developer",
+        "email" : "ayamsemestaia@gmail.com",
+        "lokasi" : "Jakarta",
+        "deskripsi" : "Deskripsi tentang Ayam Semesta"
+    },
+    {
+        "nama" : "Budi Santoso",
+        "foto" : "budi.jpg",
+        "linkedin" : "https://linkedin.com/in/budisantoso",
+        "github" : "https://github.com/budisantoso"
+,        "nomor_telepon" : "08987654321",
+        "bio" : "Saya seorang designer",
+        "email" : "budi.santoso@gmail.com"
+,        "lokasi" : "Bandung",
+        "deskripsi" : "Deskripsi tentang Budi Santoso"
+    }
+        
+]

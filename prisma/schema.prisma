@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model portfolio {
+  portfolio_id  Int       @id @default(autoincrement())
+  nama          String    @db.VarChar(100)
+  foto          String
+  linkedin      String?   @db.VarChar(100)
+  github        String?   @db.VarChar(100)
+  nomor_telepon String?   @db.VarChar(15)
+  bio           String    @db.Text
+  email         String?   @db.VarChar(100)
+  lokasi        String?   @db.Text
+  deskripsi     String?   @db.Text
+  project       project[]
+  skill         skill[]
+}
+
+model project {
+  project_id    Int       @id @default(autoincrement())
+  portfolio_id  Int
+  judul_project String    @db.VarChar(100)
+  deskripsi     String?   @db.Text
+  cover         String?
+  portfolio     portfolio @relation(fields: [portfolio_id], references: [portfolio_id], onDelete: Cascade, map: "Project_portfolio_id_fkey")
+
+  @@index([portfolio_id], map: "Project_portfolio_id_fkey")
+}
+
+model skill {
+  skill_id     Int       @id @default(autoincrement())
+  portfolio_id Int
+  nama_skill   String    @db.VarChar(100)
+  portfolio    portfolio @relation(fields: [portfolio_id], references: [portfolio_id], onDelete: Cascade, map: "Skill_portfolio_id_fkey")
+
+  @@index([portfolio_id], map: "Skill_portfolio_id_fkey")
+}
