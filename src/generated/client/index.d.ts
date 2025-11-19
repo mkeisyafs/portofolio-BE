@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model user
+ * 
+ */
+export type user = $Result.DefaultSelection<Prisma.$userPayload>
+/**
  * Model portfolio
  * 
  */
@@ -36,8 +41,8 @@ export type skill = $Result.DefaultSelection<Prisma.$skillPayload>
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Portfolios
- * const portfolios = await prisma.portfolio.findMany()
+ * // Fetch zero or more Users
+ * const users = await prisma.user.findMany()
  * ```
  *
  *
@@ -57,8 +62,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Portfolios
-   * const portfolios = await prisma.portfolio.findMany()
+   * // Fetch zero or more Users
+   * const users = await prisma.user.findMany()
    * ```
    *
    *
@@ -148,6 +153,16 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.user`: Exposes CRUD operations for the **user** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Users
+    * const users = await prisma.user.findMany()
+    * ```
+    */
+  get user(): Prisma.userDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.portfolio`: Exposes CRUD operations for the **portfolio** model.
     * Example usage:
     * ```ts
@@ -617,6 +632,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    user: 'user',
     portfolio: 'portfolio',
     project: 'project',
     skill: 'skill'
@@ -638,10 +654,76 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "portfolio" | "project" | "skill"
+      modelProps: "user" | "portfolio" | "project" | "skill"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      user: {
+        payload: Prisma.$userPayload<ExtArgs>
+        fields: Prisma.userFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.userFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$userPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.userFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$userPayload>
+          }
+          findFirst: {
+            args: Prisma.userFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$userPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.userFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$userPayload>
+          }
+          findMany: {
+            args: Prisma.userFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$userPayload>[]
+          }
+          create: {
+            args: Prisma.userCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$userPayload>
+          }
+          createMany: {
+            args: Prisma.userCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.userDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$userPayload>
+          }
+          update: {
+            args: Prisma.userUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$userPayload>
+          }
+          deleteMany: {
+            args: Prisma.userDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.userUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.userUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$userPayload>
+          }
+          aggregate: {
+            args: Prisma.UserAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUser>
+          }
+          groupBy: {
+            args: Prisma.userGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.userCountArgs<ExtArgs>
+            result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
       portfolio: {
         payload: Prisma.$portfolioPayload<ExtArgs>
         fields: Prisma.portfolioFieldRefs
@@ -936,6 +1018,7 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    user?: userOmit
     portfolio?: portfolioOmit
     project?: projectOmit
     skill?: skillOmit
@@ -1015,6 +1098,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    portfolio: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    portfolio?: boolean | UserCountOutputTypeCountPortfolioArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPortfolioArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: portfolioWhereInput
+  }
+
+
+  /**
    * Count Type PortfolioCountOutputType
    */
 
@@ -1059,6 +1173,995 @@ export namespace Prisma {
    */
 
   /**
+   * Model user
+   */
+
+  export type AggregateUser = {
+    _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    user_id: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    user_id: number | null
+  }
+
+  export type UserMinAggregateOutputType = {
+    user_id: number | null
+    email: string | null
+    password: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type UserMaxAggregateOutputType = {
+    user_id: number | null
+    email: string | null
+    password: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type UserCountAggregateOutputType = {
+    user_id: number
+    email: number
+    password: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type UserAvgAggregateInputType = {
+    user_id?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    user_id?: true
+  }
+
+  export type UserMinAggregateInputType = {
+    user_id?: true
+    email?: true
+    password?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type UserMaxAggregateInputType = {
+    user_id?: true
+    email?: true
+    password?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type UserCountAggregateInputType = {
+    user_id?: true
+    email?: true
+    password?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type UserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which user to aggregate.
+     */
+    where?: userWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of users to fetch.
+     */
+    orderBy?: userOrderByWithRelationInput | userOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: userWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned users
+    **/
+    _count?: true | UserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserMaxAggregateInputType
+  }
+
+  export type GetUserAggregateType<T extends UserAggregateArgs> = {
+        [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUser[P]>
+      : GetScalarType<T[P], AggregateUser[P]>
+  }
+
+
+
+
+  export type userGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: userWhereInput
+    orderBy?: userOrderByWithAggregationInput | userOrderByWithAggregationInput[]
+    by: UserScalarFieldEnum[] | UserScalarFieldEnum
+    having?: userScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
+    _min?: UserMinAggregateInputType
+    _max?: UserMaxAggregateInputType
+  }
+
+  export type UserGroupByOutputType = {
+    user_id: number
+    email: string
+    password: string
+    created_at: Date
+    updated_at: Date
+    _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
+  }
+
+  type GetUserGroupByPayload<T extends userGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserGroupByOutputType[P]>
+            : GetScalarType<T[P], UserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type userSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    user_id?: boolean
+    email?: boolean
+    password?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    portfolio?: boolean | user$portfolioArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["user"]>
+
+
+
+  export type userSelectScalar = {
+    user_id?: boolean
+    email?: boolean
+    password?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type userOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "email" | "password" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
+  export type userInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    portfolio?: boolean | user$portfolioArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $userPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "user"
+    objects: {
+      portfolio: Prisma.$portfolioPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      user_id: number
+      email: string
+      password: string
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["user"]>
+    composites: {}
+  }
+
+  type userGetPayload<S extends boolean | null | undefined | userDefaultArgs> = $Result.GetResult<Prisma.$userPayload, S>
+
+  type userCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<userFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserCountAggregateInputType | true
+    }
+
+  export interface userDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['user'], meta: { name: 'user' } }
+    /**
+     * Find zero or one User that matches the filter.
+     * @param {userFindUniqueArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends userFindUniqueArgs>(args: SelectSubset<T, userFindUniqueArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one User that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {userFindUniqueOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends userFindUniqueOrThrowArgs>(args: SelectSubset<T, userFindUniqueOrThrowArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first User that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {userFindFirstArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends userFindFirstArgs>(args?: SelectSubset<T, userFindFirstArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first User that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {userFindFirstOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends userFindFirstOrThrowArgs>(args?: SelectSubset<T, userFindFirstOrThrowArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Users that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {userFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Users
+     * const users = await prisma.user.findMany()
+     * 
+     * // Get first 10 Users
+     * const users = await prisma.user.findMany({ take: 10 })
+     * 
+     * // Only select the `user_id`
+     * const userWithUser_idOnly = await prisma.user.findMany({ select: { user_id: true } })
+     * 
+     */
+    findMany<T extends userFindManyArgs>(args?: SelectSubset<T, userFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a User.
+     * @param {userCreateArgs} args - Arguments to create a User.
+     * @example
+     * // Create one User
+     * const User = await prisma.user.create({
+     *   data: {
+     *     // ... data to create a User
+     *   }
+     * })
+     * 
+     */
+    create<T extends userCreateArgs>(args: SelectSubset<T, userCreateArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Users.
+     * @param {userCreateManyArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends userCreateManyArgs>(args?: SelectSubset<T, userCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a User.
+     * @param {userDeleteArgs} args - Arguments to delete one User.
+     * @example
+     * // Delete one User
+     * const User = await prisma.user.delete({
+     *   where: {
+     *     // ... filter to delete one User
+     *   }
+     * })
+     * 
+     */
+    delete<T extends userDeleteArgs>(args: SelectSubset<T, userDeleteArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one User.
+     * @param {userUpdateArgs} args - Arguments to update one User.
+     * @example
+     * // Update one User
+     * const user = await prisma.user.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends userUpdateArgs>(args: SelectSubset<T, userUpdateArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Users.
+     * @param {userDeleteManyArgs} args - Arguments to filter Users to delete.
+     * @example
+     * // Delete a few Users
+     * const { count } = await prisma.user.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends userDeleteManyArgs>(args?: SelectSubset<T, userDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {userUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Users
+     * const user = await prisma.user.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends userUpdateManyArgs>(args: SelectSubset<T, userUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one User.
+     * @param {userUpsertArgs} args - Arguments to update or create a User.
+     * @example
+     * // Update or create a User
+     * const user = await prisma.user.upsert({
+     *   create: {
+     *     // ... data to create a User
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the User we want to update
+     *   }
+     * })
+     */
+    upsert<T extends userUpsertArgs>(args: SelectSubset<T, userUpsertArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {userCountArgs} args - Arguments to filter Users to count.
+     * @example
+     * // Count the number of Users
+     * const count = await prisma.user.count({
+     *   where: {
+     *     // ... the filter for the Users we want to count
+     *   }
+     * })
+    **/
+    count<T extends userCountArgs>(
+      args?: Subset<T, userCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserAggregateArgs>(args: Subset<T, UserAggregateArgs>): Prisma.PrismaPromise<GetUserAggregateType<T>>
+
+    /**
+     * Group by User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {userGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends userGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: userGroupByArgs['orderBy'] }
+        : { orderBy?: userGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, userGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the user model
+   */
+  readonly fields: userFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for user.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__userClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    portfolio<T extends user$portfolioArgs<ExtArgs> = {}>(args?: Subset<T, user$portfolioArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$portfolioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the user model
+   */
+  interface userFieldRefs {
+    readonly user_id: FieldRef<"user", 'Int'>
+    readonly email: FieldRef<"user", 'String'>
+    readonly password: FieldRef<"user", 'String'>
+    readonly created_at: FieldRef<"user", 'DateTime'>
+    readonly updated_at: FieldRef<"user", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * user findUnique
+   */
+  export type userFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user
+     */
+    select?: userSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user
+     */
+    omit?: userOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    /**
+     * Filter, which user to fetch.
+     */
+    where: userWhereUniqueInput
+  }
+
+  /**
+   * user findUniqueOrThrow
+   */
+  export type userFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user
+     */
+    select?: userSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user
+     */
+    omit?: userOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    /**
+     * Filter, which user to fetch.
+     */
+    where: userWhereUniqueInput
+  }
+
+  /**
+   * user findFirst
+   */
+  export type userFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user
+     */
+    select?: userSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user
+     */
+    omit?: userOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    /**
+     * Filter, which user to fetch.
+     */
+    where?: userWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of users to fetch.
+     */
+    orderBy?: userOrderByWithRelationInput | userOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for users.
+     */
+    cursor?: userWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of users.
+     */
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * user findFirstOrThrow
+   */
+  export type userFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user
+     */
+    select?: userSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user
+     */
+    omit?: userOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    /**
+     * Filter, which user to fetch.
+     */
+    where?: userWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of users to fetch.
+     */
+    orderBy?: userOrderByWithRelationInput | userOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for users.
+     */
+    cursor?: userWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of users.
+     */
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * user findMany
+   */
+  export type userFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user
+     */
+    select?: userSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user
+     */
+    omit?: userOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    /**
+     * Filter, which users to fetch.
+     */
+    where?: userWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of users to fetch.
+     */
+    orderBy?: userOrderByWithRelationInput | userOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing users.
+     */
+    cursor?: userWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` users.
+     */
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * user create
+   */
+  export type userCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user
+     */
+    select?: userSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user
+     */
+    omit?: userOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    /**
+     * The data needed to create a user.
+     */
+    data: XOR<userCreateInput, userUncheckedCreateInput>
+  }
+
+  /**
+   * user createMany
+   */
+  export type userCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many users.
+     */
+    data: userCreateManyInput | userCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * user update
+   */
+  export type userUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user
+     */
+    select?: userSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user
+     */
+    omit?: userOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    /**
+     * The data needed to update a user.
+     */
+    data: XOR<userUpdateInput, userUncheckedUpdateInput>
+    /**
+     * Choose, which user to update.
+     */
+    where: userWhereUniqueInput
+  }
+
+  /**
+   * user updateMany
+   */
+  export type userUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update users.
+     */
+    data: XOR<userUpdateManyMutationInput, userUncheckedUpdateManyInput>
+    /**
+     * Filter which users to update
+     */
+    where?: userWhereInput
+    /**
+     * Limit how many users to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * user upsert
+   */
+  export type userUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user
+     */
+    select?: userSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user
+     */
+    omit?: userOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    /**
+     * The filter to search for the user to update in case it exists.
+     */
+    where: userWhereUniqueInput
+    /**
+     * In case the user found by the `where` argument doesn't exist, create a new user with this data.
+     */
+    create: XOR<userCreateInput, userUncheckedCreateInput>
+    /**
+     * In case the user was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<userUpdateInput, userUncheckedUpdateInput>
+  }
+
+  /**
+   * user delete
+   */
+  export type userDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user
+     */
+    select?: userSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user
+     */
+    omit?: userOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    /**
+     * Filter which user to delete.
+     */
+    where: userWhereUniqueInput
+  }
+
+  /**
+   * user deleteMany
+   */
+  export type userDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which users to delete
+     */
+    where?: userWhereInput
+    /**
+     * Limit how many users to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * user.portfolio
+   */
+  export type user$portfolioArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the portfolio
+     */
+    select?: portfolioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the portfolio
+     */
+    omit?: portfolioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: portfolioInclude<ExtArgs> | null
+    where?: portfolioWhereInput
+    orderBy?: portfolioOrderByWithRelationInput | portfolioOrderByWithRelationInput[]
+    cursor?: portfolioWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PortfolioScalarFieldEnum | PortfolioScalarFieldEnum[]
+  }
+
+  /**
+   * user without action
+   */
+  export type userDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user
+     */
+    select?: userSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user
+     */
+    omit?: userOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model portfolio
    */
 
@@ -1072,14 +2175,17 @@ export namespace Prisma {
 
   export type PortfolioAvgAggregateOutputType = {
     portfolio_id: number | null
+    user_id: number | null
   }
 
   export type PortfolioSumAggregateOutputType = {
     portfolio_id: number | null
+    user_id: number | null
   }
 
   export type PortfolioMinAggregateOutputType = {
     portfolio_id: number | null
+    user_id: number | null
     nama: string | null
     foto: string | null
     linkedin: string | null
@@ -1093,6 +2199,7 @@ export namespace Prisma {
 
   export type PortfolioMaxAggregateOutputType = {
     portfolio_id: number | null
+    user_id: number | null
     nama: string | null
     foto: string | null
     linkedin: string | null
@@ -1106,6 +2213,7 @@ export namespace Prisma {
 
   export type PortfolioCountAggregateOutputType = {
     portfolio_id: number
+    user_id: number
     nama: number
     foto: number
     linkedin: number
@@ -1121,14 +2229,17 @@ export namespace Prisma {
 
   export type PortfolioAvgAggregateInputType = {
     portfolio_id?: true
+    user_id?: true
   }
 
   export type PortfolioSumAggregateInputType = {
     portfolio_id?: true
+    user_id?: true
   }
 
   export type PortfolioMinAggregateInputType = {
     portfolio_id?: true
+    user_id?: true
     nama?: true
     foto?: true
     linkedin?: true
@@ -1142,6 +2253,7 @@ export namespace Prisma {
 
   export type PortfolioMaxAggregateInputType = {
     portfolio_id?: true
+    user_id?: true
     nama?: true
     foto?: true
     linkedin?: true
@@ -1155,6 +2267,7 @@ export namespace Prisma {
 
   export type PortfolioCountAggregateInputType = {
     portfolio_id?: true
+    user_id?: true
     nama?: true
     foto?: true
     linkedin?: true
@@ -1255,6 +2368,7 @@ export namespace Prisma {
 
   export type PortfolioGroupByOutputType = {
     portfolio_id: number
+    user_id: number
     nama: string
     foto: string
     linkedin: string | null
@@ -1287,6 +2401,7 @@ export namespace Prisma {
 
   export type portfolioSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     portfolio_id?: boolean
+    user_id?: boolean
     nama?: boolean
     foto?: boolean
     linkedin?: boolean
@@ -1298,6 +2413,7 @@ export namespace Prisma {
     deskripsi?: boolean
     project?: boolean | portfolio$projectArgs<ExtArgs>
     skill?: boolean | portfolio$skillArgs<ExtArgs>
+    user?: boolean | userDefaultArgs<ExtArgs>
     _count?: boolean | PortfolioCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["portfolio"]>
 
@@ -1305,6 +2421,7 @@ export namespace Prisma {
 
   export type portfolioSelectScalar = {
     portfolio_id?: boolean
+    user_id?: boolean
     nama?: boolean
     foto?: boolean
     linkedin?: boolean
@@ -1316,10 +2433,11 @@ export namespace Prisma {
     deskripsi?: boolean
   }
 
-  export type portfolioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"portfolio_id" | "nama" | "foto" | "linkedin" | "github" | "nomor_telepon" | "bio" | "email" | "lokasi" | "deskripsi", ExtArgs["result"]["portfolio"]>
+  export type portfolioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"portfolio_id" | "user_id" | "nama" | "foto" | "linkedin" | "github" | "nomor_telepon" | "bio" | "email" | "lokasi" | "deskripsi", ExtArgs["result"]["portfolio"]>
   export type portfolioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     project?: boolean | portfolio$projectArgs<ExtArgs>
     skill?: boolean | portfolio$skillArgs<ExtArgs>
+    user?: boolean | userDefaultArgs<ExtArgs>
     _count?: boolean | PortfolioCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -1328,9 +2446,11 @@ export namespace Prisma {
     objects: {
       project: Prisma.$projectPayload<ExtArgs>[]
       skill: Prisma.$skillPayload<ExtArgs>[]
+      user: Prisma.$userPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       portfolio_id: number
+      user_id: number
       nama: string
       foto: string
       linkedin: string | null
@@ -1682,6 +2802,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     project<T extends portfolio$projectArgs<ExtArgs> = {}>(args?: Subset<T, portfolio$projectArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$projectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     skill<T extends portfolio$skillArgs<ExtArgs> = {}>(args?: Subset<T, portfolio$skillArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$skillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    user<T extends userDefaultArgs<ExtArgs> = {}>(args?: Subset<T, userDefaultArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1712,6 +2833,7 @@ export namespace Prisma {
    */
   interface portfolioFieldRefs {
     readonly portfolio_id: FieldRef<"portfolio", 'Int'>
+    readonly user_id: FieldRef<"portfolio", 'Int'>
     readonly nama: FieldRef<"portfolio", 'String'>
     readonly foto: FieldRef<"portfolio", 'String'>
     readonly linkedin: FieldRef<"portfolio", 'String'>
@@ -4056,8 +5178,20 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const UserScalarFieldEnum: {
+    user_id: 'user_id',
+    email: 'email',
+    password: 'password',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
   export const PortfolioScalarFieldEnum: {
     portfolio_id: 'portfolio_id',
+    user_id: 'user_id',
     nama: 'nama',
     foto: 'foto',
     linkedin: 'linkedin',
@@ -4098,6 +5232,14 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const userOrderByRelevanceFieldEnum: {
+    email: 'email',
+    password: 'password'
+  };
+
+  export type userOrderByRelevanceFieldEnum = (typeof userOrderByRelevanceFieldEnum)[keyof typeof userOrderByRelevanceFieldEnum]
 
 
   export const NullsOrder: {
@@ -4159,6 +5301,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -4168,11 +5317,70 @@ export namespace Prisma {
    */
 
 
+  export type userWhereInput = {
+    AND?: userWhereInput | userWhereInput[]
+    OR?: userWhereInput[]
+    NOT?: userWhereInput | userWhereInput[]
+    user_id?: IntFilter<"user"> | number
+    email?: StringFilter<"user"> | string
+    password?: StringFilter<"user"> | string
+    created_at?: DateTimeFilter<"user"> | Date | string
+    updated_at?: DateTimeFilter<"user"> | Date | string
+    portfolio?: PortfolioListRelationFilter
+  }
+
+  export type userOrderByWithRelationInput = {
+    user_id?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    portfolio?: portfolioOrderByRelationAggregateInput
+    _relevance?: userOrderByRelevanceInput
+  }
+
+  export type userWhereUniqueInput = Prisma.AtLeast<{
+    user_id?: number
+    email?: string
+    AND?: userWhereInput | userWhereInput[]
+    OR?: userWhereInput[]
+    NOT?: userWhereInput | userWhereInput[]
+    password?: StringFilter<"user"> | string
+    created_at?: DateTimeFilter<"user"> | Date | string
+    updated_at?: DateTimeFilter<"user"> | Date | string
+    portfolio?: PortfolioListRelationFilter
+  }, "user_id" | "email">
+
+  export type userOrderByWithAggregationInput = {
+    user_id?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: userCountOrderByAggregateInput
+    _avg?: userAvgOrderByAggregateInput
+    _max?: userMaxOrderByAggregateInput
+    _min?: userMinOrderByAggregateInput
+    _sum?: userSumOrderByAggregateInput
+  }
+
+  export type userScalarWhereWithAggregatesInput = {
+    AND?: userScalarWhereWithAggregatesInput | userScalarWhereWithAggregatesInput[]
+    OR?: userScalarWhereWithAggregatesInput[]
+    NOT?: userScalarWhereWithAggregatesInput | userScalarWhereWithAggregatesInput[]
+    user_id?: IntWithAggregatesFilter<"user"> | number
+    email?: StringWithAggregatesFilter<"user"> | string
+    password?: StringWithAggregatesFilter<"user"> | string
+    created_at?: DateTimeWithAggregatesFilter<"user"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"user"> | Date | string
+  }
+
   export type portfolioWhereInput = {
     AND?: portfolioWhereInput | portfolioWhereInput[]
     OR?: portfolioWhereInput[]
     NOT?: portfolioWhereInput | portfolioWhereInput[]
     portfolio_id?: IntFilter<"portfolio"> | number
+    user_id?: IntFilter<"portfolio"> | number
     nama?: StringFilter<"portfolio"> | string
     foto?: StringFilter<"portfolio"> | string
     linkedin?: StringNullableFilter<"portfolio"> | string | null
@@ -4184,10 +5392,12 @@ export namespace Prisma {
     deskripsi?: StringNullableFilter<"portfolio"> | string | null
     project?: ProjectListRelationFilter
     skill?: SkillListRelationFilter
+    user?: XOR<UserScalarRelationFilter, userWhereInput>
   }
 
   export type portfolioOrderByWithRelationInput = {
     portfolio_id?: SortOrder
+    user_id?: SortOrder
     nama?: SortOrder
     foto?: SortOrder
     linkedin?: SortOrderInput | SortOrder
@@ -4199,6 +5409,7 @@ export namespace Prisma {
     deskripsi?: SortOrderInput | SortOrder
     project?: projectOrderByRelationAggregateInput
     skill?: skillOrderByRelationAggregateInput
+    user?: userOrderByWithRelationInput
     _relevance?: portfolioOrderByRelevanceInput
   }
 
@@ -4207,6 +5418,7 @@ export namespace Prisma {
     AND?: portfolioWhereInput | portfolioWhereInput[]
     OR?: portfolioWhereInput[]
     NOT?: portfolioWhereInput | portfolioWhereInput[]
+    user_id?: IntFilter<"portfolio"> | number
     nama?: StringFilter<"portfolio"> | string
     foto?: StringFilter<"portfolio"> | string
     linkedin?: StringNullableFilter<"portfolio"> | string | null
@@ -4218,10 +5430,12 @@ export namespace Prisma {
     deskripsi?: StringNullableFilter<"portfolio"> | string | null
     project?: ProjectListRelationFilter
     skill?: SkillListRelationFilter
+    user?: XOR<UserScalarRelationFilter, userWhereInput>
   }, "portfolio_id">
 
   export type portfolioOrderByWithAggregationInput = {
     portfolio_id?: SortOrder
+    user_id?: SortOrder
     nama?: SortOrder
     foto?: SortOrder
     linkedin?: SortOrderInput | SortOrder
@@ -4243,6 +5457,7 @@ export namespace Prisma {
     OR?: portfolioScalarWhereWithAggregatesInput[]
     NOT?: portfolioScalarWhereWithAggregatesInput | portfolioScalarWhereWithAggregatesInput[]
     portfolio_id?: IntWithAggregatesFilter<"portfolio"> | number
+    user_id?: IntWithAggregatesFilter<"portfolio"> | number
     nama?: StringWithAggregatesFilter<"portfolio"> | string
     foto?: StringWithAggregatesFilter<"portfolio"> | string
     linkedin?: StringNullableWithAggregatesFilter<"portfolio"> | string | null
@@ -4360,6 +5575,63 @@ export namespace Prisma {
     nama_skill?: StringWithAggregatesFilter<"skill"> | string
   }
 
+  export type userCreateInput = {
+    email: string
+    password: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    portfolio?: portfolioCreateNestedManyWithoutUserInput
+  }
+
+  export type userUncheckedCreateInput = {
+    user_id?: number
+    email: string
+    password: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    portfolio?: portfolioUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type userUpdateInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    portfolio?: portfolioUpdateManyWithoutUserNestedInput
+  }
+
+  export type userUncheckedUpdateInput = {
+    user_id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    portfolio?: portfolioUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type userCreateManyInput = {
+    user_id?: number
+    email: string
+    password: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type userUpdateManyMutationInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type userUncheckedUpdateManyInput = {
+    user_id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type portfolioCreateInput = {
     nama: string
     foto: string
@@ -4372,10 +5644,12 @@ export namespace Prisma {
     deskripsi?: string | null
     project?: projectCreateNestedManyWithoutPortfolioInput
     skill?: skillCreateNestedManyWithoutPortfolioInput
+    user: userCreateNestedOneWithoutPortfolioInput
   }
 
   export type portfolioUncheckedCreateInput = {
     portfolio_id?: number
+    user_id: number
     nama: string
     foto: string
     linkedin?: string | null
@@ -4401,10 +5675,12 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     project?: projectUpdateManyWithoutPortfolioNestedInput
     skill?: skillUpdateManyWithoutPortfolioNestedInput
+    user?: userUpdateOneRequiredWithoutPortfolioNestedInput
   }
 
   export type portfolioUncheckedUpdateInput = {
     portfolio_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
     nama?: StringFieldUpdateOperationsInput | string
     foto?: StringFieldUpdateOperationsInput | string
     linkedin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4420,6 +5696,7 @@ export namespace Prisma {
 
   export type portfolioCreateManyInput = {
     portfolio_id?: number
+    user_id: number
     nama: string
     foto: string
     linkedin?: string | null
@@ -4445,6 +5722,7 @@ export namespace Prisma {
 
   export type portfolioUncheckedUpdateManyInput = {
     portfolio_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
     nama?: StringFieldUpdateOperationsInput | string
     foto?: StringFieldUpdateOperationsInput | string
     linkedin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4572,97 +5850,63 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type ProjectListRelationFilter = {
-    every?: projectWhereInput
-    some?: projectWhereInput
-    none?: projectWhereInput
+  export type PortfolioListRelationFilter = {
+    every?: portfolioWhereInput
+    some?: portfolioWhereInput
+    none?: portfolioWhereInput
   }
 
-  export type SkillListRelationFilter = {
-    every?: skillWhereInput
-    some?: skillWhereInput
-    none?: skillWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
-  export type projectOrderByRelationAggregateInput = {
+  export type portfolioOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type skillOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type portfolioOrderByRelevanceInput = {
-    fields: portfolioOrderByRelevanceFieldEnum | portfolioOrderByRelevanceFieldEnum[]
+  export type userOrderByRelevanceInput = {
+    fields: userOrderByRelevanceFieldEnum | userOrderByRelevanceFieldEnum[]
     sort: SortOrder
     search: string
   }
 
-  export type portfolioCountOrderByAggregateInput = {
-    portfolio_id?: SortOrder
-    nama?: SortOrder
-    foto?: SortOrder
-    linkedin?: SortOrder
-    github?: SortOrder
-    nomor_telepon?: SortOrder
-    bio?: SortOrder
+  export type userCountOrderByAggregateInput = {
+    user_id?: SortOrder
     email?: SortOrder
-    lokasi?: SortOrder
-    deskripsi?: SortOrder
+    password?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
-  export type portfolioAvgOrderByAggregateInput = {
-    portfolio_id?: SortOrder
+  export type userAvgOrderByAggregateInput = {
+    user_id?: SortOrder
   }
 
-  export type portfolioMaxOrderByAggregateInput = {
-    portfolio_id?: SortOrder
-    nama?: SortOrder
-    foto?: SortOrder
-    linkedin?: SortOrder
-    github?: SortOrder
-    nomor_telepon?: SortOrder
-    bio?: SortOrder
+  export type userMaxOrderByAggregateInput = {
+    user_id?: SortOrder
     email?: SortOrder
-    lokasi?: SortOrder
-    deskripsi?: SortOrder
+    password?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
-  export type portfolioMinOrderByAggregateInput = {
-    portfolio_id?: SortOrder
-    nama?: SortOrder
-    foto?: SortOrder
-    linkedin?: SortOrder
-    github?: SortOrder
-    nomor_telepon?: SortOrder
-    bio?: SortOrder
+  export type userMinOrderByAggregateInput = {
+    user_id?: SortOrder
     email?: SortOrder
-    lokasi?: SortOrder
-    deskripsi?: SortOrder
+    password?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
-  export type portfolioSumOrderByAggregateInput = {
-    portfolio_id?: SortOrder
+  export type userSumOrderByAggregateInput = {
+    user_id?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -4697,6 +5941,123 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type ProjectListRelationFilter = {
+    every?: projectWhereInput
+    some?: projectWhereInput
+    none?: projectWhereInput
+  }
+
+  export type SkillListRelationFilter = {
+    every?: skillWhereInput
+    some?: skillWhereInput
+    none?: skillWhereInput
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: userWhereInput
+    isNot?: userWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type projectOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type skillOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type portfolioOrderByRelevanceInput = {
+    fields: portfolioOrderByRelevanceFieldEnum | portfolioOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type portfolioCountOrderByAggregateInput = {
+    portfolio_id?: SortOrder
+    user_id?: SortOrder
+    nama?: SortOrder
+    foto?: SortOrder
+    linkedin?: SortOrder
+    github?: SortOrder
+    nomor_telepon?: SortOrder
+    bio?: SortOrder
+    email?: SortOrder
+    lokasi?: SortOrder
+    deskripsi?: SortOrder
+  }
+
+  export type portfolioAvgOrderByAggregateInput = {
+    portfolio_id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type portfolioMaxOrderByAggregateInput = {
+    portfolio_id?: SortOrder
+    user_id?: SortOrder
+    nama?: SortOrder
+    foto?: SortOrder
+    linkedin?: SortOrder
+    github?: SortOrder
+    nomor_telepon?: SortOrder
+    bio?: SortOrder
+    email?: SortOrder
+    lokasi?: SortOrder
+    deskripsi?: SortOrder
+  }
+
+  export type portfolioMinOrderByAggregateInput = {
+    portfolio_id?: SortOrder
+    user_id?: SortOrder
+    nama?: SortOrder
+    foto?: SortOrder
+    linkedin?: SortOrder
+    github?: SortOrder
+    nomor_telepon?: SortOrder
+    bio?: SortOrder
+    email?: SortOrder
+    lokasi?: SortOrder
+    deskripsi?: SortOrder
+  }
+
+  export type portfolioSumOrderByAggregateInput = {
+    portfolio_id?: SortOrder
+    user_id?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -4796,6 +6157,64 @@ export namespace Prisma {
     portfolio_id?: SortOrder
   }
 
+  export type portfolioCreateNestedManyWithoutUserInput = {
+    create?: XOR<portfolioCreateWithoutUserInput, portfolioUncheckedCreateWithoutUserInput> | portfolioCreateWithoutUserInput[] | portfolioUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: portfolioCreateOrConnectWithoutUserInput | portfolioCreateOrConnectWithoutUserInput[]
+    createMany?: portfolioCreateManyUserInputEnvelope
+    connect?: portfolioWhereUniqueInput | portfolioWhereUniqueInput[]
+  }
+
+  export type portfolioUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<portfolioCreateWithoutUserInput, portfolioUncheckedCreateWithoutUserInput> | portfolioCreateWithoutUserInput[] | portfolioUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: portfolioCreateOrConnectWithoutUserInput | portfolioCreateOrConnectWithoutUserInput[]
+    createMany?: portfolioCreateManyUserInputEnvelope
+    connect?: portfolioWhereUniqueInput | portfolioWhereUniqueInput[]
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type portfolioUpdateManyWithoutUserNestedInput = {
+    create?: XOR<portfolioCreateWithoutUserInput, portfolioUncheckedCreateWithoutUserInput> | portfolioCreateWithoutUserInput[] | portfolioUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: portfolioCreateOrConnectWithoutUserInput | portfolioCreateOrConnectWithoutUserInput[]
+    upsert?: portfolioUpsertWithWhereUniqueWithoutUserInput | portfolioUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: portfolioCreateManyUserInputEnvelope
+    set?: portfolioWhereUniqueInput | portfolioWhereUniqueInput[]
+    disconnect?: portfolioWhereUniqueInput | portfolioWhereUniqueInput[]
+    delete?: portfolioWhereUniqueInput | portfolioWhereUniqueInput[]
+    connect?: portfolioWhereUniqueInput | portfolioWhereUniqueInput[]
+    update?: portfolioUpdateWithWhereUniqueWithoutUserInput | portfolioUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: portfolioUpdateManyWithWhereWithoutUserInput | portfolioUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: portfolioScalarWhereInput | portfolioScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type portfolioUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<portfolioCreateWithoutUserInput, portfolioUncheckedCreateWithoutUserInput> | portfolioCreateWithoutUserInput[] | portfolioUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: portfolioCreateOrConnectWithoutUserInput | portfolioCreateOrConnectWithoutUserInput[]
+    upsert?: portfolioUpsertWithWhereUniqueWithoutUserInput | portfolioUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: portfolioCreateManyUserInputEnvelope
+    set?: portfolioWhereUniqueInput | portfolioWhereUniqueInput[]
+    disconnect?: portfolioWhereUniqueInput | portfolioWhereUniqueInput[]
+    delete?: portfolioWhereUniqueInput | portfolioWhereUniqueInput[]
+    connect?: portfolioWhereUniqueInput | portfolioWhereUniqueInput[]
+    update?: portfolioUpdateWithWhereUniqueWithoutUserInput | portfolioUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: portfolioUpdateManyWithWhereWithoutUserInput | portfolioUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: portfolioScalarWhereInput | portfolioScalarWhereInput[]
+  }
+
   export type projectCreateNestedManyWithoutPortfolioInput = {
     create?: XOR<projectCreateWithoutPortfolioInput, projectUncheckedCreateWithoutPortfolioInput> | projectCreateWithoutPortfolioInput[] | projectUncheckedCreateWithoutPortfolioInput[]
     connectOrCreate?: projectCreateOrConnectWithoutPortfolioInput | projectCreateOrConnectWithoutPortfolioInput[]
@@ -4810,6 +6229,12 @@ export namespace Prisma {
     connect?: skillWhereUniqueInput | skillWhereUniqueInput[]
   }
 
+  export type userCreateNestedOneWithoutPortfolioInput = {
+    create?: XOR<userCreateWithoutPortfolioInput, userUncheckedCreateWithoutPortfolioInput>
+    connectOrCreate?: userCreateOrConnectWithoutPortfolioInput
+    connect?: userWhereUniqueInput
+  }
+
   export type projectUncheckedCreateNestedManyWithoutPortfolioInput = {
     create?: XOR<projectCreateWithoutPortfolioInput, projectUncheckedCreateWithoutPortfolioInput> | projectCreateWithoutPortfolioInput[] | projectUncheckedCreateWithoutPortfolioInput[]
     connectOrCreate?: projectCreateOrConnectWithoutPortfolioInput | projectCreateOrConnectWithoutPortfolioInput[]
@@ -4822,10 +6247,6 @@ export namespace Prisma {
     connectOrCreate?: skillCreateOrConnectWithoutPortfolioInput | skillCreateOrConnectWithoutPortfolioInput[]
     createMany?: skillCreateManyPortfolioInputEnvelope
     connect?: skillWhereUniqueInput | skillWhereUniqueInput[]
-  }
-
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -4860,12 +6281,12 @@ export namespace Prisma {
     deleteMany?: skillScalarWhereInput | skillScalarWhereInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type userUpdateOneRequiredWithoutPortfolioNestedInput = {
+    create?: XOR<userCreateWithoutPortfolioInput, userUncheckedCreateWithoutPortfolioInput>
+    connectOrCreate?: userCreateOrConnectWithoutPortfolioInput
+    upsert?: userUpsertWithoutPortfolioInput
+    connect?: userWhereUniqueInput
+    update?: XOR<XOR<userUpdateToOneWithWhereWithoutPortfolioInput, userUpdateWithoutPortfolioInput>, userUncheckedUpdateWithoutPortfolioInput>
   }
 
   export type projectUncheckedUpdateManyWithoutPortfolioNestedInput = {
@@ -4950,19 +6371,15 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -5010,6 +6427,35 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -5037,6 +6483,78 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type portfolioCreateWithoutUserInput = {
+    nama: string
+    foto: string
+    linkedin?: string | null
+    github?: string | null
+    nomor_telepon?: string | null
+    bio: string
+    email?: string | null
+    lokasi?: string | null
+    deskripsi?: string | null
+    project?: projectCreateNestedManyWithoutPortfolioInput
+    skill?: skillCreateNestedManyWithoutPortfolioInput
+  }
+
+  export type portfolioUncheckedCreateWithoutUserInput = {
+    portfolio_id?: number
+    nama: string
+    foto: string
+    linkedin?: string | null
+    github?: string | null
+    nomor_telepon?: string | null
+    bio: string
+    email?: string | null
+    lokasi?: string | null
+    deskripsi?: string | null
+    project?: projectUncheckedCreateNestedManyWithoutPortfolioInput
+    skill?: skillUncheckedCreateNestedManyWithoutPortfolioInput
+  }
+
+  export type portfolioCreateOrConnectWithoutUserInput = {
+    where: portfolioWhereUniqueInput
+    create: XOR<portfolioCreateWithoutUserInput, portfolioUncheckedCreateWithoutUserInput>
+  }
+
+  export type portfolioCreateManyUserInputEnvelope = {
+    data: portfolioCreateManyUserInput | portfolioCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type portfolioUpsertWithWhereUniqueWithoutUserInput = {
+    where: portfolioWhereUniqueInput
+    update: XOR<portfolioUpdateWithoutUserInput, portfolioUncheckedUpdateWithoutUserInput>
+    create: XOR<portfolioCreateWithoutUserInput, portfolioUncheckedCreateWithoutUserInput>
+  }
+
+  export type portfolioUpdateWithWhereUniqueWithoutUserInput = {
+    where: portfolioWhereUniqueInput
+    data: XOR<portfolioUpdateWithoutUserInput, portfolioUncheckedUpdateWithoutUserInput>
+  }
+
+  export type portfolioUpdateManyWithWhereWithoutUserInput = {
+    where: portfolioScalarWhereInput
+    data: XOR<portfolioUpdateManyMutationInput, portfolioUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type portfolioScalarWhereInput = {
+    AND?: portfolioScalarWhereInput | portfolioScalarWhereInput[]
+    OR?: portfolioScalarWhereInput[]
+    NOT?: portfolioScalarWhereInput | portfolioScalarWhereInput[]
+    portfolio_id?: IntFilter<"portfolio"> | number
+    user_id?: IntFilter<"portfolio"> | number
+    nama?: StringFilter<"portfolio"> | string
+    foto?: StringFilter<"portfolio"> | string
+    linkedin?: StringNullableFilter<"portfolio"> | string | null
+    github?: StringNullableFilter<"portfolio"> | string | null
+    nomor_telepon?: StringNullableFilter<"portfolio"> | string | null
+    bio?: StringFilter<"portfolio"> | string
+    email?: StringNullableFilter<"portfolio"> | string | null
+    lokasi?: StringNullableFilter<"portfolio"> | string | null
+    deskripsi?: StringNullableFilter<"portfolio"> | string | null
   }
 
   export type projectCreateWithoutPortfolioInput = {
@@ -5079,6 +6597,26 @@ export namespace Prisma {
   export type skillCreateManyPortfolioInputEnvelope = {
     data: skillCreateManyPortfolioInput | skillCreateManyPortfolioInput[]
     skipDuplicates?: boolean
+  }
+
+  export type userCreateWithoutPortfolioInput = {
+    email: string
+    password: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type userUncheckedCreateWithoutPortfolioInput = {
+    user_id?: number
+    email: string
+    password: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type userCreateOrConnectWithoutPortfolioInput = {
+    where: userWhereUniqueInput
+    create: XOR<userCreateWithoutPortfolioInput, userUncheckedCreateWithoutPortfolioInput>
   }
 
   export type projectUpsertWithWhereUniqueWithoutPortfolioInput = {
@@ -5133,6 +6671,32 @@ export namespace Prisma {
     nama_skill?: StringFilter<"skill"> | string
   }
 
+  export type userUpsertWithoutPortfolioInput = {
+    update: XOR<userUpdateWithoutPortfolioInput, userUncheckedUpdateWithoutPortfolioInput>
+    create: XOR<userCreateWithoutPortfolioInput, userUncheckedCreateWithoutPortfolioInput>
+    where?: userWhereInput
+  }
+
+  export type userUpdateToOneWithWhereWithoutPortfolioInput = {
+    where?: userWhereInput
+    data: XOR<userUpdateWithoutPortfolioInput, userUncheckedUpdateWithoutPortfolioInput>
+  }
+
+  export type userUpdateWithoutPortfolioInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type userUncheckedUpdateWithoutPortfolioInput = {
+    user_id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type portfolioCreateWithoutProjectInput = {
     nama: string
     foto: string
@@ -5144,10 +6708,12 @@ export namespace Prisma {
     lokasi?: string | null
     deskripsi?: string | null
     skill?: skillCreateNestedManyWithoutPortfolioInput
+    user: userCreateNestedOneWithoutPortfolioInput
   }
 
   export type portfolioUncheckedCreateWithoutProjectInput = {
     portfolio_id?: number
+    user_id: number
     nama: string
     foto: string
     linkedin?: string | null
@@ -5187,10 +6753,12 @@ export namespace Prisma {
     lokasi?: NullableStringFieldUpdateOperationsInput | string | null
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     skill?: skillUpdateManyWithoutPortfolioNestedInput
+    user?: userUpdateOneRequiredWithoutPortfolioNestedInput
   }
 
   export type portfolioUncheckedUpdateWithoutProjectInput = {
     portfolio_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
     nama?: StringFieldUpdateOperationsInput | string
     foto?: StringFieldUpdateOperationsInput | string
     linkedin?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5214,10 +6782,12 @@ export namespace Prisma {
     lokasi?: string | null
     deskripsi?: string | null
     project?: projectCreateNestedManyWithoutPortfolioInput
+    user: userCreateNestedOneWithoutPortfolioInput
   }
 
   export type portfolioUncheckedCreateWithoutSkillInput = {
     portfolio_id?: number
+    user_id: number
     nama: string
     foto: string
     linkedin?: string | null
@@ -5257,9 +6827,52 @@ export namespace Prisma {
     lokasi?: NullableStringFieldUpdateOperationsInput | string | null
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     project?: projectUpdateManyWithoutPortfolioNestedInput
+    user?: userUpdateOneRequiredWithoutPortfolioNestedInput
   }
 
   export type portfolioUncheckedUpdateWithoutSkillInput = {
+    portfolio_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    nama?: StringFieldUpdateOperationsInput | string
+    foto?: StringFieldUpdateOperationsInput | string
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    nomor_telepon?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    lokasi?: NullableStringFieldUpdateOperationsInput | string | null
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
+    project?: projectUncheckedUpdateManyWithoutPortfolioNestedInput
+  }
+
+  export type portfolioCreateManyUserInput = {
+    portfolio_id?: number
+    nama: string
+    foto: string
+    linkedin?: string | null
+    github?: string | null
+    nomor_telepon?: string | null
+    bio: string
+    email?: string | null
+    lokasi?: string | null
+    deskripsi?: string | null
+  }
+
+  export type portfolioUpdateWithoutUserInput = {
+    nama?: StringFieldUpdateOperationsInput | string
+    foto?: StringFieldUpdateOperationsInput | string
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    nomor_telepon?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    lokasi?: NullableStringFieldUpdateOperationsInput | string | null
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
+    project?: projectUpdateManyWithoutPortfolioNestedInput
+    skill?: skillUpdateManyWithoutPortfolioNestedInput
+  }
+
+  export type portfolioUncheckedUpdateWithoutUserInput = {
     portfolio_id?: IntFieldUpdateOperationsInput | number
     nama?: StringFieldUpdateOperationsInput | string
     foto?: StringFieldUpdateOperationsInput | string
@@ -5271,6 +6884,20 @@ export namespace Prisma {
     lokasi?: NullableStringFieldUpdateOperationsInput | string | null
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     project?: projectUncheckedUpdateManyWithoutPortfolioNestedInput
+    skill?: skillUncheckedUpdateManyWithoutPortfolioNestedInput
+  }
+
+  export type portfolioUncheckedUpdateManyWithoutUserInput = {
+    portfolio_id?: IntFieldUpdateOperationsInput | number
+    nama?: StringFieldUpdateOperationsInput | string
+    foto?: StringFieldUpdateOperationsInput | string
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    nomor_telepon?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    lokasi?: NullableStringFieldUpdateOperationsInput | string | null
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type projectCreateManyPortfolioInput = {

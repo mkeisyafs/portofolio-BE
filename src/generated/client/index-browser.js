@@ -121,8 +121,17 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UserScalarFieldEnum = {
+  user_id: 'user_id',
+  email: 'email',
+  password: 'password',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.PortfolioScalarFieldEnum = {
   portfolio_id: 'portfolio_id',
+  user_id: 'user_id',
   nama: 'nama',
   foto: 'foto',
   linkedin: 'linkedin',
@@ -151,6 +160,11 @@ exports.Prisma.SkillScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.userOrderByRelevanceFieldEnum = {
+  email: 'email',
+  password: 'password'
 };
 
 exports.Prisma.NullsOrder = {
@@ -182,6 +196,7 @@ exports.Prisma.skillOrderByRelevanceFieldEnum = {
 
 
 exports.Prisma.ModelName = {
+  user: 'user',
   portfolio: 'portfolio',
   project: 'project',
   skill: 'skill'

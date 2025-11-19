@@ -93,8 +93,17 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UserScalarFieldEnum = {
+  user_id: 'user_id',
+  email: 'email',
+  password: 'password',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.PortfolioScalarFieldEnum = {
   portfolio_id: 'portfolio_id',
+  user_id: 'user_id',
   nama: 'nama',
   foto: 'foto',
   linkedin: 'linkedin',
@@ -123,6 +132,11 @@ exports.Prisma.SkillScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.userOrderByRelevanceFieldEnum = {
+  email: 'email',
+  password: 'password'
 };
 
 exports.Prisma.NullsOrder = {
@@ -154,6 +168,7 @@ exports.Prisma.skillOrderByRelevanceFieldEnum = {
 
 
 exports.Prisma.ModelName = {
+  user: 'user',
   portfolio: 'portfolio',
   project: 'project',
   skill: 'skill'
@@ -169,7 +184,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\LENOVO\\Documents\\Github-PKL\\portofolio-practice\\src\\generated\\client",
+      "value": "C:\\Users\\LENOVO\\Github-PKL\\portfolio-2\\portofolio-BE\\src\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -183,7 +198,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\LENOVO\\Documents\\Github-PKL\\portofolio-practice\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\LENOVO\\Github-PKL\\portfolio-2\\portofolio-BE\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -205,13 +220,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/client\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel portfolio {\n  portfolio_id  Int       @id @default(autoincrement())\n  nama          String    @db.VarChar(100)\n  foto          String\n  linkedin      String?   @db.VarChar(100)\n  github        String?   @db.VarChar(100)\n  nomor_telepon String?   @db.VarChar(15)\n  bio           String    @db.Text\n  email         String?   @db.VarChar(100)\n  lokasi        String?   @db.Text\n  deskripsi     String?   @db.Text\n  project       project[]\n  skill         skill[]\n}\n\nmodel project {\n  project_id    Int       @id @default(autoincrement())\n  portfolio_id  Int\n  judul_project String    @db.VarChar(100)\n  deskripsi     String?   @db.Text\n  cover         String?\n  portfolio     portfolio @relation(fields: [portfolio_id], references: [portfolio_id], onDelete: Cascade, map: \"Project_portfolio_id_fkey\")\n\n  @@index([portfolio_id], map: \"Project_portfolio_id_fkey\")\n}\n\nmodel skill {\n  skill_id     Int       @id @default(autoincrement())\n  portfolio_id Int\n  nama_skill   String    @db.VarChar(100)\n  portfolio    portfolio @relation(fields: [portfolio_id], references: [portfolio_id], onDelete: Cascade, map: \"Skill_portfolio_id_fkey\")\n\n  @@index([portfolio_id], map: \"Skill_portfolio_id_fkey\")\n}\n",
-  "inlineSchemaHash": "0996c6ad9dd128d72305c738edc7b5cf9dd2065457a176b995524322aeb12fc9",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/client\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel user {\n  user_id    Int         @id @default(autoincrement())\n  email      String      @unique @db.VarChar(50)\n  password   String      @db.VarChar(255)\n  created_at DateTime    @default(now()) @db.Timestamp(6)\n  updated_at DateTime    @updatedAt @db.Timestamp(6)\n  portfolio  portfolio[]\n}\n\nmodel portfolio {\n  portfolio_id  Int       @id @default(autoincrement())\n  user_id       Int\n  nama          String    @db.VarChar(100)\n  foto          String\n  linkedin      String?   @db.VarChar(100)\n  github        String?   @db.VarChar(100)\n  nomor_telepon String?   @db.VarChar(15)\n  bio           String    @db.Text\n  email         String?   @db.VarChar(100)\n  lokasi        String?   @db.Text\n  deskripsi     String?   @db.Text\n  project       project[]\n  skill         skill[]\n  user          user      @relation(fields: [user_id], references: [user_id], onDelete: Cascade, map: \"Portfolio_user_id_fkey\")\n\n  @@index([user_id], map: \"Portfolio_user_id_fkey\")\n}\n\nmodel project {\n  project_id    Int       @id @default(autoincrement())\n  portfolio_id  Int\n  judul_project String    @db.VarChar(100)\n  deskripsi     String?   @db.Text\n  cover         String?\n  portfolio     portfolio @relation(fields: [portfolio_id], references: [portfolio_id], onDelete: Cascade, map: \"Project_portfolio_id_fkey\")\n\n  @@index([portfolio_id], map: \"Project_portfolio_id_fkey\")\n}\n\nmodel skill {\n  skill_id     Int       @id @default(autoincrement())\n  portfolio_id Int\n  nama_skill   String    @db.VarChar(100)\n  portfolio    portfolio @relation(fields: [portfolio_id], references: [portfolio_id], onDelete: Cascade, map: \"Skill_portfolio_id_fkey\")\n\n  @@index([portfolio_id], map: \"Skill_portfolio_id_fkey\")\n}\n",
+  "inlineSchemaHash": "6b2f69b99907c7392c0401df73dd7a8a0c9969bba49ffd7ddf36f57dfb73dcc5",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"portfolio\":{\"fields\":[{\"name\":\"portfolio_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nama\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"foto\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"linkedin\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"github\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nomor_telepon\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bio\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lokasi\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"deskripsi\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"project\",\"kind\":\"object\",\"type\":\"project\",\"relationName\":\"portfolioToproject\"},{\"name\":\"skill\",\"kind\":\"object\",\"type\":\"skill\",\"relationName\":\"portfolioToskill\"}],\"dbName\":null},\"project\":{\"fields\":[{\"name\":\"project_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"portfolio_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"judul_project\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"deskripsi\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cover\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"portfolio\",\"kind\":\"object\",\"type\":\"portfolio\",\"relationName\":\"portfolioToproject\"}],\"dbName\":null},\"skill\":{\"fields\":[{\"name\":\"skill_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"portfolio_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nama_skill\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"portfolio\",\"kind\":\"object\",\"type\":\"portfolio\",\"relationName\":\"portfolioToskill\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"user\":{\"fields\":[{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"portfolio\",\"kind\":\"object\",\"type\":\"portfolio\",\"relationName\":\"portfolioTouser\"}],\"dbName\":null},\"portfolio\":{\"fields\":[{\"name\":\"portfolio_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nama\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"foto\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"linkedin\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"github\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nomor_telepon\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bio\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lokasi\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"deskripsi\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"project\",\"kind\":\"object\",\"type\":\"project\",\"relationName\":\"portfolioToproject\"},{\"name\":\"skill\",\"kind\":\"object\",\"type\":\"skill\",\"relationName\":\"portfolioToskill\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"user\",\"relationName\":\"portfolioTouser\"}],\"dbName\":null},\"project\":{\"fields\":[{\"name\":\"project_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"portfolio_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"judul_project\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"deskripsi\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cover\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"portfolio\",\"kind\":\"object\",\"type\":\"portfolio\",\"relationName\":\"portfolioToproject\"}],\"dbName\":null},\"skill\":{\"fields\":[{\"name\":\"skill_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"portfolio_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nama_skill\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"portfolio\",\"kind\":\"object\",\"type\":\"portfolio\",\"relationName\":\"portfolioToskill\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),
